@@ -1,4 +1,9 @@
 ## CO
+[![npm (scoped)](https://img.shields.io/npm/v/@singcl/co.svg?style=flat-square)](https://www.npmjs.com/package/@singcl/co)
+![David](https://img.shields.io/david/dev/singcl/co.svg?style=flat-square)
+![David](https://img.shields.io/david/singcl/co.svg?style=flat-square)
+[![npm](https://img.shields.io/npm/dm/@singcl/co.svg?style=flat-square)](https://www.npmjs.com/package/@singcl/thunk-run)
+
 *A counterfeit co refer to [co](https://github.com/tj/co/tree/master).*
 
 Generator based flow-control goodness for nodejs, using thunks or promises, letting you write non-blocking code in a nice-ish way.
