@@ -1,20 +1,9 @@
-## CO
-*A counterfeit co refer to [co](https://github.com/tj/co/tree/master).*
-
-Generator based flow-control goodness for nodejs, using thunks or promises, letting you write non-blocking code in a nice-ish way.
-
-Co is careful to relay any errors that occur back to the generator, including those within the thunk, or from the thunk's callback. "Uncaught" exceptions in the generator are then either passed co()'s thunk or thrown.
-### Installation
-`npm install @singcl/co`
-
-### Example
-```js
 var fs = require('fs');
 var path = require('path');
 
-var co = require('@singcl/co').co;
-// var run = require('@singcl/co').run
-var thunkify = require('@singcl/co').thunk;
+var thunkify = require('../index').thunk;
+var co = require('../index').co;
+// var run = require('../index').run;
 
 var reaFileThunkify = thunkify(fs.readFile);
 var filePath = path.resolve(__dirname, './test.txt');
@@ -36,4 +25,3 @@ co(function* () {
     console.log(res);
 });
 
-```

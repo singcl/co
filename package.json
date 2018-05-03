@@ -1,6 +1,6 @@
 {
-  "name": "@singcl/thunk-run",
-  "version": "0.1.1",
+  "name": "@singcl/co",
+  "version": "0.5.0",
   "description": "comprehension of thunk funtion in javascript & generator function auto runner",
   "main": "index.js",
   "scripts": {
@@ -17,12 +17,12 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/singcl/thunk.git"
+    "url": "git+https://github.com/singcl/co.git"
   },
   "bugs": {
-    "url": "https://github.com/singcl/thunk/issues"
+    "url": "https://github.com/singcl/co/issues"
   },
-  "homepage": "https://github.com/singcl/thunk#readme",
+  "homepage": "https://github.com/singcl/co#readme",
   "devDependencies": {
     "eslint": "^4.19.1"
   }
