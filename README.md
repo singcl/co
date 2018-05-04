@@ -42,3 +42,37 @@ co(function* () {
 });
 
 ```
+
+### Yieldables
+The "yieldable" objects currently supported are:
+
+- promises
+- thunks (functions)
+- array (parallel execution)
+- generators (delegation)
+- generator functions (delegation)
+
+### API
+
+#### co(fn)
+Pass a generator fn which is immediately invoked. Any yield expressions within must return a "thunk", at which point co() will defer execution.
+```js
+var fs = require('fs');
+var path = require('path');
+
+var co = require('@singcl/co').co;
+var thunkify = require('@singcl/co').thunk;
+
+var read = thunkify(fs.readFile);
+
+co(function *(){
+  var a = yield read(path.resolve(__dirname, '.gitignore'), 'utf8');
+  var b = yield read(path.resolve(__dirname, '.eslintrc.js'), 'utf8');
+  var c = yield read(path.resolve(__dirname, 'package.json'), 'utf8');
+  console.log(a);
+  console.log(b);
+  console.log(c);
+});
+```
+
+**API about more is at TJ`s [co](https://github.com/tj/co/tree/0.5.0)**
