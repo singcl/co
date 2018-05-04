@@ -17,9 +17,9 @@ Co is careful to relay any errors that occur back to the generator, including th
 var fs = require('fs');
 var path = require('path');
 
-var co = require('@singcl/co').co;
-// var run = require('@singcl/co').run
-var thunkify = require('@singcl/co').thunk;
+var co = require('@singcl/co');
+var thunkify = co.thunkify;
+// var run = co.run
 
 var reaFileThunkify = thunkify(fs.readFile);
 var filePath = path.resolve(__dirname, './test.txt');
@@ -60,8 +60,8 @@ Pass a generator fn which is immediately invoked. Any yield expressions within m
 var fs = require('fs');
 var path = require('path');
 
-var co = require('@singcl/co').co;
-var thunkify = require('@singcl/co').thunk;
+var co = require('@singcl/co');
+var thunkify = co.thunkify;
 
 var read = thunkify(fs.readFile);
 
@@ -73,6 +73,6 @@ co(function *(){
   console.log(b);
   console.log(c);
 });
-```
+``` 
 
 **API about more is at TJ`s [co](https://github.com/tj/co/tree/0.5.0)**

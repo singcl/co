@@ -64,18 +64,8 @@ function co(fn, ctx) {
     };
 }
 
-
-exports.wrap = function (fn, ctx) {
-    return function () {
-        var args = [].slice.call(arguments);
-        return function (done) {
-            args.push(done);
-            fn.apply(ctx || this, args);
-        };
-    };
-};
-
-exports.join = function (fns) {
+// join
+function join (fns) {
     if (!Array.isArray(fns)) fns = [].slice.call(arguments);
     var ctx = this;
 
@@ -118,7 +108,7 @@ exports.join = function (fns) {
             }
         }
     };
-};
+}
 
 function isGenerator(obj) {
     return obj && '[object Generator]' == Object.prototype.toString.call(obj);
@@ -141,7 +131,7 @@ function promiseToThunk(promise) {
 }
 
 function toThunk(obj, ctx) {
-    if (Array.isArray(obj)) obj = exports.join.call(ctx, obj);
+    if (Array.isArray(obj)) obj = join.call(ctx, obj);
     if (isGeneratorFunction(obj)) obj = obj.call(ctx);
     if (isGenerator(obj)) obj = co(obj, ctx);
     if (isPromise(obj)) obj = promiseToThunk(obj);
@@ -149,4 +139,5 @@ function toThunk(obj, ctx) {
 }
 
 // @module A counterfeit co.
-module.exports = co;
+exports = module.exports = co;
+exports.join = join;

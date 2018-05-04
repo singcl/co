@@ -1,9 +1,8 @@
 var fs = require('fs');
 var path = require('path');
 
-var thunkify = require('../index').thunk;
-var co = require('../index').co;
-// var run = require('../index').run;
+var co = require('../index');
+var thunkify = co.thunkify;
 
 var reaFileThunkify = thunkify(fs.readFile);
 var filePath1 = path.resolve(__dirname, './test.txt');
