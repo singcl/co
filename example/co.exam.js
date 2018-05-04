@@ -3,8 +3,11 @@ var path = require('path');
 
 var co = require('../index');
 var thunkify = co.thunkify;
+var promisify = co.promisify;
 
 var reaFileThunkify = thunkify(fs.readFile);
+var reaFilePromisify = promisify(fs.readFile);
+
 var filePath1 = path.resolve(__dirname, './test.txt');
 var filePath2 = path.resolve(__dirname, './co.exam.js');
 
@@ -15,16 +18,17 @@ co(function* (path) {
     console.log(a);
     console.log(b);
     console.log(c);
-}, filePath1);
+}, filePath1).then(function(v) {
+    console.log('co完成！', v);
+});
 
 co(function* (path) {
-    var a = reaFileThunkify(path, 'utf8');
-    var b = reaFileThunkify(path, 'utf8');
-    var c = reaFileThunkify(path, 'utf8');
+    var a = reaFilePromisify(path, 'utf8');
+    var b = reaFilePromisify(path, 'utf8');
+    var c = reaFilePromisify(path, 'utf8');
     var res = yield [a, b, c];
     console.log(res);
-}, filePath2)(function(err, data) {
-    if (err) console.log(err);
-    console.log('co 执行完成！', data);
+}, filePath2).then(function(v) {
+    console.log('co完成！', v);
 });
 

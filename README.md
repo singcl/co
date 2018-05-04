@@ -8,9 +8,8 @@
 
 Generator based flow-control goodness for nodejs, using thunks or promises, letting you write non-blocking code in a nice-ish way.
 
-Co is careful to relay any errors that occur back to the generator, including those within the thunk, or from the thunk's callback. "Uncaught" exceptions in the generator are then either passed co()'s thunk or thrown.
 ### Installation
-`npm install @singcl/co`
+`npm install @singcl/co -S`
 
 ### Example
 ```js
@@ -19,26 +18,33 @@ var path = require('path');
 
 var co = require('@singcl/co');
 var thunkify = co.thunkify;
-// var run = co.run
+var promisify = co.promisify;
 
 var reaFileThunkify = thunkify(fs.readFile);
-var filePath = path.resolve(__dirname, './test.txt');
+var reaFilePromisify = promisify(fs.readFile);
 
-co(function* () {
-    var a = yield reaFileThunkify(filePath, 'utf8');
-    var b = yield reaFileThunkify(filePath, 'utf8');
-    var c = yield reaFileThunkify(filePath, 'utf8');
+var filePath1 = path.resolve(__dirname, './test.txt');
+var filePath2 = path.resolve(__dirname, './co.exam.js');
+
+co(function* (path) {
+    var a = yield reaFileThunkify(path, 'utf8');
+    var b = yield reaFileThunkify(path, 'utf8');
+    var c = yield reaFileThunkify(path, 'utf8');
     console.log(a);
     console.log(b);
     console.log(c);
+}, filePath1).then(function(v) {
+    console.log('co完成！', v);
 });
 
-co(function* () {
-    var a = reaFileThunkify(filePath, 'utf8');
-    var b = reaFileThunkify(filePath, 'utf8');
-    var c = reaFileThunkify(filePath, 'utf8');
+co(function* (path) {
+    var a = reaFilePromisify(path, 'utf8');
+    var b = reaFilePromisify(path, 'utf8');
+    var c = reaFilePromisify(path, 'utf8');
     var res = yield [a, b, c];
     console.log(res);
+}, filePath2).then(function(v) {
+    console.log('co完成！', v);
 });
 
 ```
@@ -53,26 +59,5 @@ The "yieldable" objects currently supported are:
 - generator functions (delegation)
 
 ### API
-
-#### co(fn)
-Pass a generator fn which is immediately invoked. Any yield expressions within must return a "thunk", at which point co() will defer execution.
-```js
-var fs = require('fs');
-var path = require('path');
-
-var co = require('@singcl/co');
-var thunkify = co.thunkify;
-
-var read = thunkify(fs.readFile);
-
-co(function *(){
-  var a = yield read(path.resolve(__dirname, '.gitignore'), 'utf8');
-  var b = yield read(path.resolve(__dirname, '.eslintrc.js'), 'utf8');
-  var c = yield read(path.resolve(__dirname, 'package.json'), 'utf8');
-  console.log(a);
-  console.log(b);
-  console.log(c);
-});
-``` 
 
 **API about more is at TJ`s [co](https://github.com/tj/co/tree/0.5.0)**
