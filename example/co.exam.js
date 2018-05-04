@@ -23,5 +23,8 @@ co(function* () {
     var c = reaFileThunkify(filePath, 'utf8');
     var res = yield [a, b, c];
     console.log(res);
+})(function(err, data) {
+    if (err) console.log(err);
+    console.log('co 执行完成！', data);
 });
 
