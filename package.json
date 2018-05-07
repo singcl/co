@@ -1,6 +1,6 @@
 {
   "name": "@singcl/co",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "comprehension of thunk funtion in javascript & generator function auto runner",
   "main": "index.js",
   "scripts": {
